@@ -1,0 +1,67 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  li.selected {
+    background-color: lightblue;
+    animation: highlight 1s infinite alternate;
+  }
+  
+  @keyframes highlight {
+    from {
+      background-color: lightblue;
+    }
+    to {
+      background-color: rgb(121, 177, 241);
+    }
+  }
+  
+
+
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    height: 330px; /* Adjust the height according to your requirements */
+    overflow-y: auto;
+  }
+  
+  .message-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .message-sender {
+    font-size: 0.875rem;
+    color: #6c757d;
+    text-align: right;
+  }
+  
+  .message-right-sender {
+    text-align: right;
+  }
+  .message-content {
+    display: inline-block;
+    max-width: 80%; /* Adjust the width as needed */
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .sent {
+    align-self: flex-end;
+    background-color: rgb(93, 240, 105); /* Style the sent message */
+  }
+  
+  .received {
+    align-self: flex-start;
+    background-color: rgb(173, 234, 241); /* Style the received message */
+  }
+  

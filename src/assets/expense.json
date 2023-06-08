@@ -1,0 +1,89 @@
+
+[
+  {
+    "id": "1",
+    "expensename": "Delhi Trip",
+    "expensedetail": "Include travel ticket data",
+    "category": {
+      "id": "1",
+      "name": "Travel"
+    },
+    "date": "01-10-2022",
+    "isRecoverable": false,
+    "added_by": "05-10-2022",
+    "added_on": "User 2",
+    "history": [
+      {
+        "id": "1",
+        "date": "05-10-2022",
+        "event": "Expense Created"
+      },
+      {
+        "id": "1",
+        "date": "04-10-2022",
+        "event": "Expense Edited"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "expensename": "Mumbai Trip",
+    "expensedetail": "Include travel ticket data",
+    "category": {
+      "id": "1",
+      "name": "Travel"
+    },
+    "date": "01-10-2022",
+    "isRecoverable": false,
+    "added_by": "05-10-2022",
+    "added_on": "User 2",
+    "history": [
+      {
+        "id": "1",
+        "date": "05-10-2022",
+        "event": "Expense Onto date"
+      },
+      {
+        "id": "1",
+        "date": "04-10-2022",
+        "event": "Expense Shared"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "expensename": "Team Lunch",
+    "expensedetail": "Include food bill data",
+    "category": {
+      "id": "1",
+      "name": "Food"
+    },
+    "date": "11-10-2022",
+    "isRecoverable": true,
+    "added_by": "05-10-2022",
+    "added_on": "User 2",
+    "history": [
+      {
+        "id": "1",
+        "date": "15-10-2022",
+        "event": "Expense Created"
+      },
+      {
+        "id": "1",
+        "date": "15-10-2022",
+        "event": "Expense added"
+      },{
+        "id": "1",
+        "date": "15-10-2022",
+        "event": "Expense deleted"
+      },
+
+      {
+        "id": "1",
+        "date": "24-10-2022",
+        "event": "Expense Edited"
+      }
+    ]
+  }
+]
+

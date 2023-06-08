@@ -1,0 +1,41 @@
+<div class="p-grid p-d-flex p-jc-center p-card">
+
+    <div class="col-12 p-md-8 p-mt-4">
+        <div style="height: 70vh;position: relative;">
+            <div class="col-12 p-md-4 p-text-start">
+                <ul>
+                    <li  style="list-style: none;"><h4>Your Contact</h4></li>
+                    <li style="list-style: none;" class="p-mt-2 p-text-start" *ngFor="let con of contact">
+                        <span> {{con.id}} </span>
+                        <p-tag  value={{con.name}} icon="pi pi-user"></p-tag>
+                    </li>
+                </ul>
+            </div>
+
+            <div class=" p-d-flex p-jc-between" style="position: absolute; bottom: 0; width: 100%;">
+                <p-chip label="Your id is {{id}}"></p-chip>
+                <button pButton label="New Contact" (click)="modal=true" pRipple type="button" icon="pi pi-plus" class="p-button-outlined p-button-rounded p-button-success"></button>
+            </div>
+
+            
+          </div>
+    </div>
+    
+</div>
+<p-dialog header="Add Contact   " [(visible)]="modal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field col-8">
+            <label for="name">Id</label>
+            <input type="text" pInputText id="name" [(ngModel)]="formid" autofocus />
+        </div>
+        <div class="p-field col-8">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="formname" autofocus />
+        </div>   
+    </div>
+    <ng-template pTemplate="footer" class="p-d-flex p-jc-center ">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="modal=false"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveContact()"></button>
+    </ng-template>
+    </p-dialog>

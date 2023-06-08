@@ -1,0 +1,27 @@
+<!-- <h5 class="text-2xl">welcome, please log in/create account </h5> -->
+<div class="p-grid">
+<div class="p-col-12 p-md-6 p-mx-auto p-px-5 p-mt-4">
+
+    
+            <form name="loginForm">
+                <p class="p-text-muted p-text-center">log in</p>
+                <div class="p-inputgroup p-mb-3">
+                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                    <input type="text" pInputText name="username" class="form-control" [(ngModel)]="id"
+                        placeholder="Enter your ID" autocomplete="username" required>
+
+                     
+                </div>
+                <span class="p-text-center text-xl " *ngIf="showid">Your id new is {{id}} </span>  
+                    <div class="p-d-flex p-jc-between p-mt-4">
+                        <!-- <button icon="pi pi-facebook" type="button" pButton label="Sign in with facebook" class="p-button-secondary" routerLink="/register"></button>
+                        <button icon="pi pi-google" type="button" pButton label="Sign in with Google" routerLink="/forgotpassword" class="p-button-primary"></button> -->
+                        <button  type="button" pButton label="Login" class="p-button-secondary"></button>
+                        <button  type="button" pButton label="Enter Your ID" (click)="setIdtoStorage()" class="p-button-secondary"></button>
+                    </div>
+        
+            </form>
+      
+    </div>
+
+</div>

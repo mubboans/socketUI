@@ -1,0 +1,21 @@
+<!-- <app-header></app-header> -->
+<div class="p-grid p-d-flex p-jc-center ">
+
+    <div class="col-12 p-md-8 p-mt-4">
+        <p-tabView>
+            <p-tabPanel [selected]="true" header="Conservation">
+           <app-conservation></app-conservation>
+            </p-tabPanel>
+            <p-tabPanel header="Contact">
+                <ng-template pTemplate="content">
+                 <app-contact></app-contact>
+                </ng-template>
+            </p-tabPanel>
+        </p-tabView>
+        </div>
+
+        <div class="col-12 p-md-8">
+        </div>
+
+
+        </div>
