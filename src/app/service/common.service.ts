@@ -10,6 +10,8 @@ import { LocalstorageService } from './localstorage.service';
   providedIn: 'root'
 })
 export class CommonService {
+  // socketUrl = "ws://localhost:3001/";
+  socketUrl = "ws://localhost:5001/testapp-ac339/us-central1/app/";
   socket: Socket;
   constructor(public http:HttpClient,public local:LocalstorageService) { }
 
@@ -31,7 +33,7 @@ fnConvertText2Speech(type,periodType):Observable<any> {
 }
 
   connecttoSocket(id){
-    this.socket = io.connect('http://localhost:3001/',{query:{id}});
+    this.socket = io.connect(this.socketUrl,{query:{id}});
   }
 
   sendMessage(obj){

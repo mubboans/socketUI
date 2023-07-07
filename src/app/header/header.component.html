@@ -8,6 +8,9 @@
     <ng-template pTemplate="end">
         <!-- <p-tag class="p-mb-3" value={{id}}></p-tag> -->
        <!-- <span> {{id}} </span>  -->
+       <button pButton pRipple type="button" label="saga-blue" (click)="changeTheme('saga-blue')" class="p-button-outlined p-button-rounded"></button>
+       <button pButton pRipple type="button" label="dark indigo" (click)="changeTheme('md-dark-indigo')" class="p-button-rounded p-button-secondary"></button>
+       <button pButton pRipple type="button" label="vela-blue" (click)="changeTheme('vela-blue')" class="p-button-rounded p-button-primary"></button> 
         <button pButton label="Logout" pTooltip="Your id is {{id}}" tooltipPosition="bottom" (click)="fnLogout()" pRipple type="button" icon="pi pi-user" class="p-button-outlined p-button-rounded"></button>
         <!-- <button pButton pRipple type="button" icon="pi pi-user" class="p-button-outlined p-button-rounded"></button> 
         <button pButton pRipple type="button" icon="pi pi-heart" class="p-button-outlined p-button-rounded"></button>

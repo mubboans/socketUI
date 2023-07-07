@@ -5,6 +5,7 @@ import {MenubarModule} from 'primeng-lts/menubar';
 import { Route, Router } from '@angular/router';
 import { LocalstorageService } from '../service/localstorage.service';
 import { CommonService } from '../service/common.service';
+import { ThemeselectionService } from '../service/themeselection.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,7 +13,7 @@ import { CommonService } from '../service/common.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public router:Router,public local:LocalstorageService,public com:CommonService) { }
+  constructor(public router:Router,public local:LocalstorageService,public com:CommonService,public theme:ThemeselectionService) { }
   items: MenuItem[];
   menuitem: MenuItem[];
   id:any;
@@ -49,6 +50,11 @@ export class HeaderComponent implements OnInit {
     {label: 'plus size', icon: 'pi pi-fw pi-book'},
     {label: 'loungewear', icon: 'pi pi-fw pi-thumbs-up'},
 ];
+  }
+  changeTheme(themecolor){
+    console.log(themecolor);
+    
+    this.theme.switchTheme(themecolor);
   }
 fnLogout(){
   console.log('logout');

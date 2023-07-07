@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/lazy-load-sample",
+            "outputPath": "dist/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -30,7 +30,21 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/primeng-lts/resources/themes/saga-blue/theme.css",
+             {
+              "input": "././src/assets/style/light.scss",
+              "bundleName": "saga-blue",
+              "inject": false
+             },
+             {
+              "input": "././src/assets/style/dark.scss",
+              "bundleName": "md-dark-indigo",
+              "inject": false
+             },
+              {
+                "input": "././src/assets/style/vela-blue.scss",
+                "bundleName": "vela-blue",
+                "inject": false
+              },
               "node_modules/primeng-lts/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.css"

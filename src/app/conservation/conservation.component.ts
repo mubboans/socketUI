@@ -102,7 +102,7 @@ deletecon(product){
     // this.message = this.local.getMessageRecord();
     console.log(this.text);
     this.com.recieveMessage();
-    this.change.detectChanges();
+    // this.change.detectChanges();
     this.message = this.local.getMessageRecord();
     console.log(this.message);
     this.change.detectChanges();
