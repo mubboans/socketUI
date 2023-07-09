@@ -1,37 +1,24 @@
 
-<div class="p-grid p-d-flex p-jc-center p-card">
-
-    <div class="col-12 p-md-8 p-mt-4">
-        <div class="p-grid" style="height: 70vh;position: relative;">
-
-            <!-- [ngClass]="{ 'selected': first }" -->
-            <div class="col-12 p-md-6 p-text-start">
-                <!-- <ul class="list-none p-m-0 p-p-0 p-d-flex lg:flex-column p-jc-between lg:justify-content-start mb-5 lg:mb-0">
-                    <li *ngFor="let con of conversation;let first=first" >
-                        <a [ngClass]="{ 'surface-100': first }" class="lg:w-15rem flex align-items-center cursor-pointer p-3 border-round hover:surface-200 transition-duration-150 transition-colors">
-                    <i class="pi pi-user md:mr-2 text-700"></i><span class="font-medium hidden md:block text-800">{{con.name}}</span>
-                    <span role="presentation" class="p-ink" style="height: 240px; width: 240px; top: -85px; left: 32.3333px;">
-                    </span></a>
-                </li>
-                </ul> -->
-
-
-                <div class="card">
+<div class="p-grid p-d-flex p-jc-center p-mx-auto p-mt-2">
+            <div class="col-12 p-md-5 p-text-start">
                     <h5>Your Created Conversavtion</h5>
-                    
                     <p-table [value]="conversation" selectionMode="single" [(selection)]="selectedProduct2" dataKey="name"
                         (onRowSelect)="onRowSelect($event)">
                         <!-- (onRowUnselect)="onRowUnselect($event)" -->
                         <ng-template pTemplate="header">
                             <tr>
-                                <th colspan="3">Please contact name</th>
+                                <th><p-chip label="Your name:-{{name}}" icon="pi pi-copy" (click)="copyId()"></p-chip></th>
+                                <th colspan="2" class="p-text-right">
+                                    <button pButton label="New Conversation" pRipple (click)="modal=true" type="button" icon="pi pi-plus" class="p-button-outlined p-button-rounded p-button-help">                                        
+                                    </button>
+                                </th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-product>
                             <tr [pSelectableRow]="product">
                                 <td><i class="pi pi-user p-mr-2 text-700"></i></td>
                                 <td>{{product.name}}</td>
-                                <td>
+                                <td class="p-text-center">
                                   
                                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletecon(product)"></button>
                                 </td>
@@ -40,62 +27,101 @@
                         </ng-template>
                     </p-table>
                 </div>
-                
-
-
-                <!-- <ul class="list-none p-m-0 p-p-0 p-d-flex p-flex-column p-jc-between p-mb-5">
-                    <li *ngFor="let product of conversation" [ngClass]="{ 'selected': product.id === selectedProductId }">
-                      <div class="p-d-flex p-ai-center border-round p-p-3"> 
-                        <i class="pi pi-user md:mr-2 text-700"></i>
-                           <span (click)="onSelectProduct(product.id)">{{ product.name }}</span>
+            <div class="col-12 p-md-5 p-text-start">
+                  <section class="msger">
+                    <header class="msger-header">
+                      <div class="msger-header-title">
+                        <i class="pi pi-whatsapp"></i> Rocket Chat App
+                      </div>
+                      <div class="msger-header-options">
+                        <span>
+                          <i class="pi pi-server"></i></span>
+                      </div>
+                    </header>
+                  
+                    <main class="msger-chat" #content>
+                      <div class="message p-d-flex" *ngFor="let message of message" #messages>
+                        <!-- <div  class="msg left-msg">
+                          <div
+                           class="msg-img"
+                           style="background-image: url(https://ucarecdn.com/0d26e991-266c-491f-a842-6e2874527e9a/userprofile.jpg)"
+                          ></div>
+                    
+                          <div class="msg-bubble">
+                            <div class="msg-info">
+                              <div class="msg-info-name">BOT</div>
+                              <div class="msg-info-time">12:45</div>
+                            </div>
+                    
+                            <div class="msg-text">
+                              Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
+                            </div>
+                          </div>
                         </div>
-                    </li>
-                  </ul> -->
+                    
+                        <div  class="msg right-msg">
+                          <div
+                           class="msg-img"
+                           style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"
+                          ></div>
+                    
+                          <div class="msg-bubble">
+                            <div class="msg-info">
+                              <div class="msg-info-name">Sajad</div>
+                              <div class="msg-info-time">12:46</div>
+                            </div>
+                    
+                            <div class="msg-text">
+                              You can change your name in JS section!
+                            </div>
+                          </div>
+                        </div>
+                   -->
+                        <div class="p-d-flex" [ngClass]="{'msg right-msg': message.fromMe, 'msg left-msg': !message.fromMe}">
+                          <div class="msg-img" style="background-image: url(https://ucarecdn.com/0d26e991-266c-491f-a842-6e2874527e9a/userprofile.jpg)"></div>
+                    
+                          <div class="msg-bubble">
+                            <div class="msg-info">
+                              <div class="msg-info-name">{{message.fromMe ? 'You' : message.sendername}}</div>
+                              <!-- <div class="msg-info-time">{{message.time ? convertDateToShortTime(curDate) : convertDateToShortTime(message.time)}}</div> -->
+                              <div class="msg-info-time">{{convertDateToShortTime(message.time)}}</div>
+                            </div>
+                    
+                            <div class="msg-text">
+                              {{ message.text }}
+                            </div>
+                          </div>
+                        </div>
+                  
+                  
+                      </div>
+                     
+                  
+                  
+                    </main>
+                  
+                    <div class="msger-inputarea">
+                      <input type="text" [(ngModel)]="text" class="msger-input" placeholder="Enter your message...">
+                      <!-- <button type="submit" class="msger-send-btn">Send</button> -->
+                      <button pButton label="Send" pRipple (click)="send()" type="button" class="p-button-rounded p-button-warning p-button-sm"></button>
+                    </div>
+                  </section>
 
-
-
-                </div>
-            <!-- style="position: relative;"
-             style="position: absolute;bottom:25px;width:100%;right:0;" -->
-            <div class="col-12 p-md-6 p-text-start">
-                
-                 <div class="chat-container">
-    <div class="message-container" *ngFor="let message of message; let lastMessage = last"
-    [ngClass]="{'sent': message.senderid === id, 'received': message.senderid !== id}" >
-    <div class="message-content">
-        {{ message.text }}
-      </div>
-      <div class="message-sender" [ngClass]="{ 'message-right-sender': message.fromMe }">
-        {{ message.fromMe ? 'You' : getSenderName(message.senderid)}}
-      </div>
-    </div>
-  </div>
-
-                <div class="p-fluid p-formgrid p-grid p-d-flex">
+                <!-- <div class="p-fluid p-formgrid p-grid p-d-flex">
                     <div class="p-field p-col-12">
-                        <!-- <label for="address">Address</label> -->
                         <textarea id="address" [(ngModel)]="text" type="text" rows="4" pInputTextarea></textarea>
                     </div>
                     <div class="p-field p-col-6 p-as-end">
                         <button pButton label="Send" pRipple (click)="send()" type="button" class="p-button-rounded p-button-warning p-button-sm"></button>
                     </div>
-                </div>
+                </div> -->
             </div>
 
-            <div class=" p-d-flex p-jc-between" style="position: absolute; bottom: 0; width: 100%;">
-                <p-chip label="Your id is {{id}}" icon="pi pi-copy" (click)="copyId()"></p-chip>
-                <!-- <p-chip >
-                    <ng-template pTemplate="item">
-                       <span>{{id}} - (active) </span>
-                         <i class="pi pi-user p-ml-2"></i>
-                    </ng-template>
-                </p-chip> -->
-                <button pButton label="New Conversation" pRipple (click)="modal=true" type="button" icon="pi pi-plus" class="p-button-outlined p-button-rounded p-button-help"></button>
-            </div>
+          
 
 
-          </div>
-    </div>
+          <!-- </div> -->
+    <!-- </div> -->
     
 </div>
 <p-toast position="bottom-right"></p-toast>

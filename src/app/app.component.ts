@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalstorageService } from './service/localstorage.service';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent{
-  constructor(){}
+  constructor(public local:LocalstorageService){}
   title = 'lazy-load-sample';
 
 }

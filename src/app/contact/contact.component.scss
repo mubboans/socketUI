@@ -99,7 +99,12 @@
 	:host ::ng-deep .product-list-item {
 		flex-direction: column;
 		align-items: center;
-
+        .p-chip {
+            font-size: xx-small;
+            align-items: center;
+            display: inline-flex;
+        }
+        
 		img {
 			width: 75%;
 			margin: 2rem 0;

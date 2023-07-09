@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,16 @@ export class LocalstorageService {
     contactstorage='contact';
     conversationstorage='conversation';
     messagestorage = 'message';
-  constructor(public router:Router) { }
+    namestorage='name';
+    messageSubject = new Subject<any>();
+    
+  constructor(public router:Router) { 
+    this.messageSubject.next(this.getMessageRecord())
+  }
+  fnsetLocalValueforName(value){
+    localStorage.setItem(this.namestorage,value);
+  }
+
   fnsetLocalValueforId(value){
     localStorage.setItem('id',value);
   }
@@ -17,7 +26,9 @@ export class LocalstorageService {
   fngetLocalValueforId(){
     return localStorage.getItem('id');
   }
-
+  fngetLocalValueforName(){
+    return localStorage.getItem(this.namestorage);
+  }
   fnsetValueForContact(value){
     localStorage.setItem(this.contactstorage,value);
   }
@@ -44,14 +55,17 @@ export class LocalstorageService {
     localStorage.setItem(this.conversationstorage, JSON.stringify(records));
   }
 
+  
   getMessageRecord():any[]{
     const recordsJson = localStorage.getItem(this.messagestorage);
+    this.messageSubject.next(JSON.parse(recordsJson)); 
     return recordsJson ? JSON.parse(recordsJson) : [];
   }
 
   addMessageRecords(value){
     const records = this.getMessageRecord();
     records.push(value);
+
     localStorage.setItem(this.messagestorage, JSON.stringify(records));
   }
 
@@ -67,6 +81,7 @@ export class LocalstorageService {
 
   fnclearAll(){
     localStorage.removeItem("id");
+    localStorage.removeItem(this.namestorage)
     localStorage.removeItem(this.contactstorage);
     localStorage.removeItem(this.conversationstorage);
     localStorage.removeItem(this.messagestorage);

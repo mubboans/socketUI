@@ -47,7 +47,7 @@ import {ToggleButtonModule} from 'primeng-lts/togglebutton';
 import {AccordionModule} from 'primeng-lts/accordion';
 import {TieredMenuModule} from 'primeng-lts/tieredmenu';
 import {FieldsetModule} from 'primeng-lts/fieldset';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './service/jwt.interceptor';
@@ -140,6 +140,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     
   ],
   providers: [
+    DatePipe,
     MessageService,ConfirmationService,
     {provide: HTTP_INTERCEPTORS,useClass:JwtInterceptor, multi:true}
     

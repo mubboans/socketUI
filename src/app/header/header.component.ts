@@ -17,12 +17,16 @@ export class HeaderComponent implements OnInit {
   items: MenuItem[];
   menuitem: MenuItem[];
   id:any;
+  name:string;
   activeItem: MenuItem;
   selectedCity1:string;
   cities: any[];
   ngOnInit(): void {
     this.id= this.local.fngetLocalValueforId();
-    this.com.connecttoSocket(this.id);
+    this.name=this.local.fngetLocalValueforName();
+    this.com.connecttoSocket(this.name);
+    
+    this.com.recieveMessage();
     this.cities = [
         {name: 'New York', code: 'NY'},
         {name: 'Rome', code: 'RM'},

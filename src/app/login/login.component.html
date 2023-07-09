@@ -7,8 +7,8 @@
                 <p class="p-text-muted p-text-center">log in</p>
                 <div class="p-inputgroup p-mb-3">
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input type="text" pInputText name="username" class="form-control" [(ngModel)]="id"
-                        placeholder="Enter your ID" autocomplete="username" required>
+                    <input type="text" pInputText name="username" class="form-control" [(ngModel)]="name"
+                        placeholder="Enter your Name" autocomplete="username" required>
 
                      
                 </div>
@@ -16,8 +16,8 @@
                     <div class="p-d-flex p-jc-between p-mt-4">
                         <!-- <button icon="pi pi-facebook" type="button" pButton label="Sign in with facebook" class="p-button-secondary" routerLink="/register"></button>
                         <button icon="pi pi-google" type="button" pButton label="Sign in with Google" routerLink="/forgotpassword" class="p-button-primary"></button> -->
-                        <button  type="button" pButton label="Login" class="p-button-secondary"></button>
-                        <button  type="button" pButton label="Enter Your ID" (click)="setIdtoStorage()" class="p-button-secondary"></button>
+                        <button  type="button" pButton label="Login" (click)="loginUser()" class="p-button-secondary"></button>
+                        <button  type="button" pButton label="Create Random Name" (click)="loginUser()" class="p-button-secondary"></button>
                     </div>
         
             </form>

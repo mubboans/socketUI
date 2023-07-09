@@ -1,7 +1,7 @@
-<div class="p-grid p-d-flex p-jc-center p-card">
+<div class="p-grid p-d-flex p-jc-center">
 
     <div class="col-12 p-md-8 p-mt-4">
-        <div style="height: 70vh;position: relative;">
+        <!-- <div style="height: 70vh;position: relative;">
             <div class="col-12 p-md-4 p-text-start">
                 <ul>
                     <li  style="list-style: none;"><h4>Your Contact</h4></li>
@@ -10,25 +10,54 @@
                         <p-tag  value={{con.name}} icon="pi pi-user"></p-tag>
                     </li>
                 </ul>
+            </div> --> 
+          <!-- </div> -->
+          <!-- </div> -->
+          <div class="surface-card shadow-2 border-round p-4 h-full">
+            <div class="flex align-items-center justify-content-between mb-3">
+                <div class="text-900 font-medium text-xl">Your Contact</div>
+                <div class="p-d-flex p-jc-center p-align-center ">
+                    <!-- <button pbutton="" pripple="" icon="pi pi-ellipsis-v"
+                        class="p-element p-ripple p-button-text p-button-plain p-button-rounded p-button p-component p-button-icon-only"><span
+                            class="p-button-icon pi pi-ellipsis-v" aria-hidden="true"></span><span
+                            class="p-ink"></span></button> -->
+                    
+                        <!---->
+                        <p-chip class="p-mr-2" label="Your name:-{{name}}"></p-chip>
+                        <button pButton label="New Contact" (click)="modal=true" pRipple type="button" icon="pi pi-plus" class="p-button-outlined p-button-rounded p-button-success"></button>
+                </div>
             </div>
-
-            <div class=" p-d-flex p-jc-between" style="position: absolute; bottom: 0; width: 100%;">
-                <p-chip label="Your id is {{id}}"></p-chip>
-                <button pButton label="New Contact" (click)="modal=true" pRipple type="button" icon="pi pi-plus" class="p-button-outlined p-button-rounded p-button-success"></button>
-            </div>
-
-            
-          </div>
-    </div>
-    
+            <ul class="list-none p-0 m-0">
+              <ng-container *ngFor="let con of contact; let i = index">
+                <!-- [ngClass]="getBackgroundClass(i)" -->
+                <li  class="py-3 border-bottom-1 surface-border flex md:align-items-start md:justify-content-between flex-column md:flex-row">
+                    <div class="flex align-items-start mr-0 lg:mr-5"><img
+                            src="https://ucarecdn.com/0d26e991-266c-491f-a842-6e2874527e9a/userprofile.jpg" class="mr-3 w-3rem h-3rem">
+                        <div><span class="text-900 font-medium block mb-2">{{con.name}}</span>
+                            <div class="text-700 mb-2">{{con.id}}</div>
+                            <a class="text-primary cursor-pointer">
+                                <!-- <i class="pi pi-github text-sm mr-2"></i> -->
+                                    <span>Added Recently</span>
+                                </a>
+                        </div>
+                    </div><span class="block text-500 font-medium ml-7 md:ml-5 mt-2 md:mt-0">{{con.time |date:'dd/MM/YYYY'}}-{{con.time |date:'shortTime'}}</span>
+                </li>
+                </ng-container>
+            </ul>
+        </div>
 </div>
+</div>
+<!-- <div class=" p-d-flex p-jc-between" style="position: absolute; bottom: 0; width: 100%;">
+    <p-chip label="Your name:-{{name}}"></p-chip>
+    <button pButton label="New Contact" (click)="modal=true" pRipple type="button" icon="pi pi-plus" class="p-button-outlined p-button-rounded p-button-success"></button>
+</div> -->
 <p-dialog header="Add Contact   " [(visible)]="modal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false">
     <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field col-8">
+        <!-- <div class="p-field col-8">
             <label for="name">Id</label>
             <input type="text" pInputText id="name" [(ngModel)]="formid" autofocus />
-        </div>
+        </div> -->
         <div class="p-field col-8">
             <label for="name">Name</label>
             <input type="text" pInputText id="name" [(ngModel)]="formname" autofocus />

@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { LocalstorageService } from '../service/localstorage.service';
 import { CommonService } from '../service/common.service';
 import { MessageService } from 'primeng-lts/api';
-
+import { Socket } from 'socket.io-client';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-conservation',
   templateUrl: './conservation.component.html',
@@ -17,34 +18,75 @@ export class ConservationComponent implements OnInit {
   text: string;
   message: any[];
   selectedProductId: string = ''; 
+  selectedProductName: any;
   selectedProduct2:any;
+  name:string;
+  socket: Socket;
+  curDate=new Date();
+  @ViewChild('chatContainer') chatContainer: ElementRef;
+  
+  @ViewChildren('messages') messages: QueryList<any>;
+  @ViewChild('content') content: ElementRef;
 
-  constructor(public local: LocalstorageService, public change: ChangeDetectorRef,public com:CommonService,private messageService: MessageService) { }
-
+  constructor(public local: LocalstorageService,
+    public datePipe:DatePipe,
+     public change: ChangeDetectorRef,public com:CommonService,
+     private messageService: MessageService) { }
+  ngAfterViewInit() {
+    this.scrollToBottom();
+    this.messages.changes.subscribe(this.scrollToBottom);
+  }
   ngOnInit(): void {
-    this.change.detectChanges();
+    this.name=this.local.fngetLocalValueforName();
+   
     this.conversation = this.local.getConversationRecord();
     this.conversation = this.conversation.reverse();
     this.contactlist = this.local.getContactRecords();
-    this.message = this.local.getMessageRecord();
+
+  //  = this.local.getMessageRecord();
+    
     this.id = this.local.fngetLocalValueforId();
+    
     if (this.conversation.length > 0) {
-      this.selectedProductId = this.conversation[0].id;
+      this.selectedProductName = this.conversation[0].name; 
+      this.selectedProductId = this.conversation[0].name;
     }
 
+    this.local.messageSubject.subscribe((x)=>{
+      this.message  = x;
+      // this.scrollToBottom()
+      this.change.detectChanges();
+    })
+    if(this.message == undefined || !this.message){
+      this.message = this.local.getMessageRecord()
+      this.scrollToBottom()
+    }
+    console.log(this.message,'mssg array');  
   }
-
+  scrollToBottom = () => {
+    try {
+      this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
+    } catch (err) {}
+  }
+  recieveMessage(){
+    console.log('recievemssg hits',this.socket);
+    // this.com.recieveMessage();
+    this.scrollToBottom();
+    this.change.detectChanges();
+  }
   copyId(){
-    navigator.clipboard.writeText(this.id).then(
+    navigator.clipboard.writeText(this.name).then(
       () => {
-        this.messageService.add({severity:'info', summary:'Text Copied to Clipboard', detail: `${this.id} is copied`});
+        this.messageService.add({severity:'info', summary:'Text Copied to Clipboard', detail: `${this.name} is copied`});
       }
     ).catch(e => console.log(e));
   }
 
   onRowSelect(event) {
+    console.log( event.data);
+    this.selectedProductName =event.data.name; 
     this.selectedProductId = event.data.id;
-    this.messageService.add({severity:'info', summary:'Product Selected', detail:`${event.data.id} is now selected` });
+    this.messageService.add({severity:'info', summary:'Product Selected', detail:`${event.data.name} is now selected` });
 }
 
 onRowUnselect(event) {
@@ -56,15 +98,18 @@ editcon(product){
 
 }
 deletecon(product){
-  this.messageService.add({severity:'Deleted', summary:'Conversation Deleted',  detail:"Successfull deleted"});
-  this.conversation = this.conversation.filter((x)=>x.id !== product.id)
-  this.local.fnClearconversationLocal();
-  this.local.addConversationRecords(this.conversation );
+  this.messageService.add({severity:'success', summary:'Conversation Deleted',  detail:"Successfull deleted"});
+  console.log(this.conversation,'conversation array');
+  const d = this.conversation.filter((x)=>x.id !== product.id)
+  console.log(d,'conversation deleted');
+  // this.local.fnClearconversationLocal();
+  // this.local.addConversationRecords(this.conversation );
   // localStorage.setItem('conservation', JSON.stringify(this.conversation));
-  this.conversation = this.local.getConversationRecord();
+  // this.conversation = this.local.getConversationRecord();
   this.change.detectChanges();
 }
-  createConversation() {
+
+createConversation() {
     console.log(this.selectedList);
     let cover = {
       id: this.selectedList.map((x) => x.id),
@@ -80,37 +125,36 @@ deletecon(product){
 
 
   onSelectProduct(productId) {
+    this.selectedProductName =productId; 
     this.selectedProductId = productId;
-    // console.log(this.selectedProductId,productId);  
-    // You can perform any additional actions here based on the selected product
   }
-  send() {
-    let mes = {
-      recieverId:this.selectedProductId,
-      senderid: this.id,
-      text: this.text,
-      fromMe:true
-    }
-    let obj ={
-      recipients:this.selectedProductId,
-      text:this.text,
-      senderid:this.id
-    }
-    this.com.sendMessage(obj);
+  convertDateToShortTime(date: Date): string {
+    // const shortDate =  this.datePipe.transform(date, ''); 
+    const shortTime = this.datePipe.transform(date, 'h:mm a dd/MM/yyyy');
+    return shortTime;
+  }
 
+  send() {
+    console.log(this.name,this.selectedProductName,this.text);
+    
+    let mes = {
+      sendername:this.name,
+      recievername:this.selectedProductName,
+      text: this.text.trim(),
+      type:'outgoing',
+      fromMe:true,
+      time:new Date()
+    }
+    console.log(mes,'message check with id',name,this.selectedProductName,this.text);
+    this.com.sendMessage(mes);
     this.local.addMessageRecords(mes)
-    // this.message = this.local.getMessageRecord();
+  
     console.log(this.text);
-    this.com.recieveMessage();
-    // this.change.detectChanges();
-    this.message = this.local.getMessageRecord();
-    console.log(this.message);
+    this.recieveMessage()
+    this.local.getMessageRecord();
+    console.log(this.message,'new message log');
+    this.scrollToBottom();
     this.change.detectChanges();
-    // this.com.recieveMessage('receive-message').subscribe((data: any) => {
-    //   console.log('Received message:', data);
-    //   // this.local.addMessageRecords(data)
-    //   this.change.detectChanges();
-    // });
     this.text = '';
   }
   getSenderName(id){

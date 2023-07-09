@@ -10,9 +10,10 @@ import { LocalstorageService } from './localstorage.service';
   providedIn: 'root'
 })
 export class CommonService {
-  // socketUrl = "ws://localhost:3001/";
-  socketUrl = "ws://localhost:5001/testapp-ac339/us-central1/app/";
+  socketUrl = "ws://localhost:3001/";
+  // socketUrl = "ws://localhost:5001/testapp-ac339/us-central1/app/";
   socket: Socket;
+  private interval: any;
   constructor(public http:HttpClient,public local:LocalstorageService) { }
 
 fnConvertText2Speech(type,periodType):Observable<any> {
@@ -32,29 +33,40 @@ fnConvertText2Speech(type,periodType):Observable<any> {
   return this.http.post<any>(`${environment.serUrl}text-speech`,body,options).pipe(map((response: ArrayBuffer) =>{return response}),catchError(this.handleError))
 }
 
-  connecttoSocket(id){
-    this.socket = io.connect(this.socketUrl,{query:{id}});
+  connecttoSocket(name){
+    this.socket = io.connect(this.socketUrl,{query:{name}});
   }
 
   sendMessage(obj){
-    this.socket.emit('send-message',obj)
+    this.socket.emit('sendMessage',obj)
   }
   recieveMessage(){
-    this.socket.on('receive-message',(data)=>{
-      this.local.addMessageRecords(data)
+    this.socket.on('receiveMessage',(data)=>{
+      // let name = this.local.fngetLocalValueforName();
+      const name = this.local.fngetLocalValueforName();
+      if(name === data.recievername){
+        console.log('condtiontrue name match');
+        
+        this.local.addMessageRecords(data)
+        this.local.getMessageRecord();
+      }
       console.log(data);
     }
     )
   }
-  // public recieveMessage(event: string): Observable<any> {
-  //   return new Observable<any>(observer => {
-  //     this.socket.on(event, (data) => {
-  //       // console.log(data,'revieve message');
-        
-  //       observer.next(data);
-  //     });
-  //   });
-  // }
+
+  startInterval() {
+    // this.interval = setInterval(() => {
+    //   console.log('Interval Started.');
+    console.log('Message event hit');
+      this.socket.on('receive-message', (obj) => {
+        if(obj && obj.type){
+          console.log('Message received!');
+        }
+      })
+    // }, 1000);
+  }
+
 
   closeSocket(){
     this.socket.close();

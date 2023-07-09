@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LocalstorageService } from '../service/localstorage.service';
 
 @Component({
@@ -12,25 +12,43 @@ export class ContactComponent implements OnInit {
   formid:any;
   formname:string;
   contact:any[];
-  constructor(public local:LocalstorageService) { }
+  name:string;
+  backgroundClasses: string[] = ['bg-blue-50', 'bg-purple-50', 'bg-green-50', 'bg-teal-50'];
+  constructor(public local:LocalstorageService,public change:ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.name= this.local.fngetLocalValueforName();
+    console.log(this.name,'namein contact');
+    
     this.id=this.local.fngetLocalValueforId();
     this.contact = this.local.getContactRecords();
     console.log(this.contact);
     
   }
+  getBackgroundClass(index: number): string {
+    return this.backgroundClasses[index % this.backgroundClasses.length];
+  }
   saveContact(){
     console.log(this.formid,this.formname);
-    this.modal=false;
+    
     let contact =
     {
-      id:this.formid,
-      name:this.formname
+      id:this.getRandomUniqueId(),
+      name:this.formname,
+      time:new Date()
     }
     this.local.addContactRecord(contact);
     this.contact = this.local.getContactRecords();
+    this.change.detectChanges();
     this.formid="";
     this.formname="";
+    this.modal=false;
+  }
+  getRandomUniqueId(): number {
+    let uniqueId = Math.round(Math.random() * Math.pow(6, 6));
+    // while (this.isUniqueIdExists(uniqueId)) {
+      uniqueId = Math.round(Math.random() * Math.pow(6, 6));
+    // }
+    return uniqueId;
   }
 }
