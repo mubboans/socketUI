@@ -40,7 +40,7 @@
                     </header>
                   
                     <main class="msger-chat" #content>
-                      <div class="message p-d-flex" *ngFor="let message of message" #messages>
+                      <div class="message p-d-flex" [ngClass]="{'p-jc-end':message.fromMe}" *ngFor="let message of message" #messages>
                         <!-- <div  class="msg left-msg">
                           <div
                            class="msg-img"
@@ -100,10 +100,18 @@
                   
                     </main>
                   
-                    <div class="msger-inputarea">
-                      <input type="text" [(ngModel)]="text" class="msger-input" placeholder="Enter your message...">
-                      <!-- <button type="submit" class="msger-send-btn">Send</button> -->
-                      <button pButton label="Send" pRipple (click)="send()" type="button" class="p-button-rounded p-button-warning p-button-sm"></button>
+                    <div class="p-grid p-fluid p-d-flex p-jc-center ">
+                      <div class="p-col-10 p-md-9 p-m-2"> 
+                        <div class="p-inputgroup">
+                          <input type="text" pInputText [(ngModel)]="text" placeholder="Enter your message...">   
+                          <button type="button" pButton (click)="send()" pRipple icon="pi pi-arrow-right" styleClass="p-button-warn"></button>      
+                      </div>
+                      </div>
+                      <div class="p-col-2 p-md-3 p-m-2">
+                        
+                      </div>
+                      <!-- <input type="text"  class="msger-input" placeholder="Enter your message...">
+                      <button pButton label="Send" pRipple (click)="send()" type="button" class="p-button-rounded p-button-warning p-button-sm"></button> -->
                     </div>
                   </section>
 

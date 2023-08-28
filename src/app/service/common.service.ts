@@ -10,8 +10,11 @@ import { LocalstorageService } from './localstorage.service';
   providedIn: 'root'
 })
 export class CommonService {
-  socketUrl = "ws://localhost:3001/";
-  // socketUrl = "ws://localhost:5001/testapp-ac339/us-central1/app/";
+  // socketUrl = "ws://localhost:3001/";
+   socketUrl = "https://rocket-chat-app.onrender.com/";
+  // socketUrl = "wss://socket-connection.vercel.app/";
+  // socketUrl ="https://socket-connection-eshzh29s0-fy5mubashir.vercel.app/"
+
   socket: Socket;
   private interval: any;
   constructor(public http:HttpClient,public local:LocalstorageService) { }
@@ -45,7 +48,7 @@ fnConvertText2Speech(type,periodType):Observable<any> {
       // let name = this.local.fngetLocalValueforName();
       const name = this.local.fngetLocalValueforName();
       if(name === data.recievername){
-        console.log('condtiontrue name match');
+        console.log('condtiontrue name match',name,data.recievername);
         
         this.local.addMessageRecords(data)
         this.local.getMessageRecord();

@@ -21,7 +21,6 @@ export class ConservationComponent implements OnInit {
   selectedProductName: any;
   selectedProduct2:any;
   name:string;
-  socket: Socket;
   curDate=new Date();
   @ViewChild('chatContainer') chatContainer: ElementRef;
   
@@ -69,8 +68,8 @@ export class ConservationComponent implements OnInit {
     } catch (err) {}
   }
   recieveMessage(){
-    console.log('recievemssg hits',this.socket);
-    // this.com.recieveMessage();
+    console.log('recievemssg hits');
+ 
     this.scrollToBottom();
     this.change.detectChanges();
   }
@@ -135,9 +134,7 @@ createConversation() {
   }
 
   send() {
-    console.log(this.name,this.selectedProductName,this.text);
-    
-    let mes = {
+     let mes = {
       sendername:this.name,
       recievername:this.selectedProductName,
       text: this.text.trim(),
@@ -145,14 +142,12 @@ createConversation() {
       fromMe:true,
       time:new Date()
     }
-    console.log(mes,'message check with id',name,this.selectedProductName,this.text);
     this.com.sendMessage(mes);
-    this.local.addMessageRecords(mes)
-  
-    console.log(this.text);
-    this.recieveMessage()
+    if(this.name == mes.sendername){
+      this.local.addMessageRecords(mes)
+    }
+    this.scrollToBottom();
     this.local.getMessageRecord();
-    console.log(this.message,'new message log');
     this.scrollToBottom();
     this.change.detectChanges();
     this.text = '';
