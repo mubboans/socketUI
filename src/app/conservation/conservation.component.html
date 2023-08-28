@@ -41,43 +41,7 @@
                   
                     <main class="msger-chat" #content>
                       <div class="message p-d-flex" *ngFor="let message of message" #messages>
-                        <!-- <div  class="msg left-msg">
-                          <div
-                           class="msg-img"
-                           style="background-image: url(https://ucarecdn.com/0d26e991-266c-491f-a842-6e2874527e9a/userprofile.jpg)"
-                          ></div>
-                    
-                          <div class="msg-bubble">
-                            <div class="msg-info">
-                              <div class="msg-info-name">BOT</div>
-                              <div class="msg-info-time">12:45</div>
-                            </div>
-                    
-                            <div class="msg-text">
-                              Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
-                            </div>
-                          </div>
-                        </div>
-                    
-                        <div  class="msg right-msg">
-                          <div
-                           class="msg-img"
-                           style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"
-                          ></div>
-                    
-                          <div class="msg-bubble">
-                            <div class="msg-info">
-                              <div class="msg-info-name">Sajad</div>
-                              <div class="msg-info-time">12:46</div>
-                            </div>
-                    
-                            <div class="msg-text">
-                              You can change your name in JS section!
-                            </div>
-                          </div>
-                        </div>
-                   -->
-                        <div class="p-d-flex" [ngClass]="{'msg right-msg': message.fromMe, 'msg left-msg': !message.fromMe}">
+                       <div class="p-d-flex" [ngClass]="{'msg right-msg': message.fromMe, 'msg left-msg': !message.fromMe}">
                           <div class="msg-img" style="background-image: url(https://ucarecdn.com/0d26e991-266c-491f-a842-6e2874527e9a/userprofile.jpg)"></div>
                     
                           <div class="msg-bubble">
@@ -107,22 +71,68 @@
                     </div>
                   </section>
 
-                <!-- <div class="p-fluid p-formgrid p-grid p-d-flex">
-                    <div class="p-field p-col-12">
-                        <textarea id="address" [(ngModel)]="text" type="text" rows="4" pInputTextarea></textarea>
+                  <div class="container">
+                    <div class="top">
+                        <div class="AvatarBot">
+                            <img src="https://ucarecdn.com/0d26e991-266c-491f-a842-6e2874527e9a/userprofile.jpg" alt="RagBot">
+                        </div>
+                        <div class="InfoBot">
+                            <p class="TitleBot">{{name}}</p>
+                            <p class="status">Away</p>
+                        </div>
                     </div>
-                    <div class="p-field p-col-6 p-as-end">
+                    <div class="ContentChat">
+                      <div *ngFor="let message of message">
+                        <div [ngClass]="{'massage msgCaption': message.fromMe, 'captionBot msgCaption': !message.fromMe}"
+                         [attr.data-user]="message.fromMe ?true : false" >
+                          <span> {{message.fromMe ? 'You' : message.sendername}} </span>
+                        </div>
+                        <div class="massage" [attr.data-user]="message.fromMe ?true : false" >
+                          <div [ngClass]="{'user-response': message.fromMe, 'bot-response text': !message.fromMe}" 
+                          [attr.data-user]="message.fromMe?true : false" [text-first]="message.fromMe ?true : false">
+                          {{ message.text }}
+                          </div>
+                        </div>
+
+                      </div>
+                
+                      <div class="captionBot msgCaption">
+                        <img src="https://ucarecdn.com/0d26e991-266c-491f-a842-6e2874527e9a/userprofile.jpg" alt="RagBot">
+                         <span>
+                          Sender Name
+                        </span>
+                        </div>
+
+                        
+                        <div class="massage">
+                          <div class="bot-response text" text-first="true">
+                            Message to Reciever
+                          </div>
+                        </div>
+
+                        <div class="massage msgCaption" data-user="true">
+                          <span class="captionUser">You</span>
+                          </div>
+                          <div class="massage" data-user="true">
+                            <div class="user-response" data-user="true">
+                              Mesaage from Sender
+                              </div>
+                          </div>
+
+                    </div>
+                    <div class="BoxSentMSG ">
+
+                        <input type="text" [(ngModel)]="text" placeholder="Type your message here " class="InputMSG " required>
                         <button pButton label="Send" pRipple (click)="send()" type="button" class="p-button-rounded p-button-warning p-button-sm"></button>
                     </div>
-                </div> -->
-            </div>
+                    <span class="by">
+                        <span>Powered by</span>
+                    <a target="_blank " href="https://github.com/emnatkins/raybot" style="color: rgb(18, 91, 251); ">Mubashir Ansari</a>
+                    </span>
+                </div>
 
-          
 
-
-          <!-- </div> -->
-    <!-- </div> -->
-    
+            </div>    
 </div>
 <p-toast position="bottom-right"></p-toast>
 

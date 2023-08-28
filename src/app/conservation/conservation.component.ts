@@ -23,6 +23,7 @@ export class ConservationComponent implements OnInit {
   name:string;
   socket: Socket;
   curDate=new Date();
+  chatname = "";
   @ViewChild('chatContainer') chatContainer: ElementRef;
   
   @ViewChildren('messages') messages: QueryList<any>;
@@ -86,6 +87,7 @@ export class ConservationComponent implements OnInit {
     console.log( event.data);
     this.selectedProductName =event.data.name; 
     this.selectedProductId = event.data.id;
+    this.name=event.data.name;
     this.messageService.add({severity:'info', summary:'Product Selected', detail:`${event.data.name} is now selected` });
 }
 
