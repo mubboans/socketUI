@@ -42,7 +42,8 @@ import {DropdownModule} from 'primeng-lts/dropdown';
 
 
 import {ProgressSpinnerModule} from 'primeng-lts/progressspinner';
-
+import {MenuModule} from 'primeng-lts/menu';
+import {MenuItem} from 'primeng-lts/api';
 import {ToggleButtonModule} from 'primeng-lts/togglebutton';
 import {AccordionModule} from 'primeng-lts/accordion';
 import {TieredMenuModule} from 'primeng-lts/tieredmenu';
@@ -97,10 +98,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     ReactiveFormsModule,
     InputSwitchModule,
-  
-
+    MenuModule,
     CardModule,
-
     CarouselModule,
     TooltipModule,
 

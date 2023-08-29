@@ -1,12 +1,16 @@
 
- <app-header *ngIf="!!local.fngetLocalValueforName()"></app-header>
- <main class="main">
-  <!-- <app-login></app-login> -->
-<router-outlet>
-  <!-- // primeng-lts/resources/themes/arya-green/theme.css -->
-</router-outlet>
-<!-- <app-home></app-home> -->
- </main>
-
+ <div class="card">
+   <app-header *ngIf="!!local.fngetLocalValueforName()"></app-header>
+   <main class="main">
+    <!-- <app-login></app-login> -->
+  <router-outlet>
+    <!-- // primeng-lts/resources/themes/arya-green/theme.css -->
+  </router-outlet>
+  <!-- <app-home></app-home> -->
+   </main>
+ </div>
+ <p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'},'425px':{width: '50%', right: '0', left: '0'}}" 
+ [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"
+  position="bottom-right" [showTransformOptions]="'translateX(100%)'" [preventDuplicates]="true"></p-toast>
  <!-- <app-footer></app-footer>  -->
 

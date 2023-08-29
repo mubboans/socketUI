@@ -22,6 +22,7 @@ export class ConservationComponent implements OnInit {
   selectedProduct2:any;
   name:string;
   curDate=new Date();
+  chatname = "Users";
   @ViewChild('chatContainer') chatContainer: ElementRef;
   
   @ViewChildren('messages') messages: QueryList<any>;
@@ -42,7 +43,6 @@ export class ConservationComponent implements OnInit {
     this.conversation = this.conversation.reverse();
     this.contactlist = this.local.getContactRecords();
 
-  //  = this.local.getMessageRecord();
     
     this.id = this.local.fngetLocalValueforId();
     
@@ -53,14 +53,13 @@ export class ConservationComponent implements OnInit {
 
     this.local.messageSubject.subscribe((x)=>{
       this.message  = x;
-      // this.scrollToBottom()
       this.change.detectChanges();
     })
     if(this.message == undefined || !this.message){
       this.message = this.local.getMessageRecord()
+
       this.scrollToBottom()
     }
-    console.log(this.message,'mssg array');  
   }
   scrollToBottom = () => {
     try {
@@ -68,8 +67,6 @@ export class ConservationComponent implements OnInit {
     } catch (err) {}
   }
   recieveMessage(){
-    console.log('recievemssg hits');
- 
     this.scrollToBottom();
     this.change.detectChanges();
   }
@@ -85,7 +82,21 @@ export class ConservationComponent implements OnInit {
     console.log( event.data);
     this.selectedProductName =event.data.name; 
     this.selectedProductId = event.data.id;
-    this.messageService.add({severity:'info', summary:'Product Selected', detail:`${event.data.name} is now selected` });
+    this.chatname=event.data.name[0];
+
+    console.log(this.message,'message after selection');
+    this.message = this.message.filter(x=>{
+      console.log(x,'x');
+      let aa = x.recievername.includes(this.chatname);
+      if(aa){
+        console.log(aa,'aa');
+        return x;
+      }
+      console.log(x.recievername,this.chatname,aa);
+
+      //  x.recievername.includes(this.chatname)
+      });
+    this.messageService.add({severity:'info', summary:`${event.data.name} Selected`, detail:`${event.data.name} will see your message` });
 }
 
 onRowUnselect(event) {

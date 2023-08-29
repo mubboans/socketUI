@@ -42,6 +42,22 @@ export class HeaderComponent implements OnInit {
     {
         label:'Contact',
         routerLink:'/contact'  
+    },
+    {
+      label:'Change Theme',
+      items:[
+          {
+              label:'Light',
+              command:()=>{this.changeTheme('saga-blue')}, 
+              icon:'pi pi-circle-off'
+          },
+          {
+              label:'Dark',
+              icon:'pi pi-circle-on',
+              command:()=>{this.changeTheme('vela-blue')},
+          },
+          
+      ]
     }
   ];
   this.menuitem = [
